@@ -68,8 +68,12 @@ class GameOfLife {
     }
 
     // Основний метод гри
-    public static void playGame() {
-        //TODO
+    public static char[][] playGame(char[][] field, int generations) {
+        for (int i = 0; i < generations; i++) {
+            field = nextGeneration(field);
+        }
+        System.out.println(Arrays.deepToString(field));
+        return field;
     }
 
     // Метод для запису поля у файл
