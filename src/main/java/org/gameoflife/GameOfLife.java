@@ -16,8 +16,22 @@ class GameOfLife {
     }
 
     // Метод для підрахунку сусідів клітини
-    public static void countNeighbors() {
-        //TODO
+    public static int countNeighbors(char[][] field, int x, int y) {
+        int[] dx = {-1, -1, -1, 0, 0, 1, 1, 1};
+        int[] dy = {-1, 0, 1, -1, 1, -1, 0, 1};
+        int rows = field.length;
+        int cols = field[0].length;
+        int count = 0;
+
+        for (int i = 0; i < 8; i++) {
+            int nx = (x + dx[i] + rows) % rows;
+            int ny = (y + dy[i] + cols) % cols;
+            if (field[nx][ny] == 'x') {
+                count++;
+            }
+        }
+
+        return count;
     }
 
     // Метод для отримання стану клітини у наступному поколінні

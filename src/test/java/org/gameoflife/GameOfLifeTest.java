@@ -38,7 +38,7 @@ class GameOfLifeTest {
         assertEquals(3, generations);
         assertEquals(8, cols);
         assertEquals(5, rows);
-        assertArrayEquals(new char[][] {
+        assertArrayEquals(new char[][]{
                 {'.', '.', '.', '.', '.', '.', '.', '.'},
                 {'.', '.', 'x', '.', '.', '.', '.', '.'},
                 {'.', '.', 'x', '.', '.', '.', '.', '.'},
@@ -47,6 +47,23 @@ class GameOfLifeTest {
         }, field);
         br.close();
         Files.deleteIfExists(path);
+    }
+
+    @Test
+    void testCountNeighbors() {
+        char[][] field = {
+                {'x', '.', '.', '.', '.', 'x', '.', 'x'},
+                {'x', '.', 'x', '.', '.', '.', '.', 'x'},
+                {'x', '.', 'x', '.', 'x', '.', 'x', '.'},
+                {'.', '.', 'x', '.', '.', '.', '.', 'x'},
+                {'x', '.', '.', '.', '.', 'x', '.', 'x'},
+        };
+        assertEquals(5, GameOfLife.countNeighbors(field, 0, 0));
+        assertEquals(3, GameOfLife.countNeighbors(field, 2, 0));
+        assertEquals(1, GameOfLife.countNeighbors(field, 0, 2));
+        assertEquals(2, GameOfLife.countNeighbors(field, 4, 4));
+        assertEquals(4, GameOfLife.countNeighbors(field, 3, 7));
+        assertEquals(4, GameOfLife.countNeighbors(field, 4, 7));
     }
 
 }
