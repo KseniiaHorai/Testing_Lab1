@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class GameOfLifeTest {
     @Test
     void testCorrect() {
-        int sum = 4;
+        int sum = 5;
         assertEquals(2 + 2, sum);
     }
 
