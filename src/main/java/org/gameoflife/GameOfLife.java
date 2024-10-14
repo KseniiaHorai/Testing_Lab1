@@ -83,24 +83,26 @@ class GameOfLife {
     }
 
     public static void main(String[] args) throws IOException {
+
         // Зчитування даних з файлу
         BufferedReader br = new BufferedReader(new FileReader("input.txt"));
         int generations = Integer.parseInt(br.readLine());
-
-        System.out.println(generations);
-        System.out.println("generations");
-
+        
         String[] inputParams = br.readLine().split(" ");
 
         int cols = Integer.parseInt(inputParams[0]);
         int rows = Integer.parseInt(inputParams[1]);
-        System.out.println(Arrays.toString(inputParams));
-        System.out.println("inputParams");
 
+        // Зчитування початкового поля
         char[][] field = readField(br, rows, cols);
-        System.out.println(Arrays.deepToString(field));
-        System.out.println("field");
-
         br.close();
+
+        // Граємо в гру і отримуємо поле після заданої кількості поколінь
+        char[][] finalField = playGame(field, generations);
+
+        // Запис результатів у файл
+        PrintWriter pw = new PrintWriter(new FileWriter("output.txt"));
+        writeField(pw, finalField);
+        pw.close();
     }
 }
