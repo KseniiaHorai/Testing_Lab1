@@ -2,9 +2,7 @@ package org.gameoflife;
 
 import org.junit.jupiter.api.*;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -14,6 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class GameOfLifeTest {
 
     private static final String INPUT_FILE = "test_input.txt";
+    private static final String OUTPUT_FILE = "test_output.txt";
 
     @Test
     void testReadField() throws IOException {
@@ -148,5 +147,25 @@ class GameOfLifeTest {
                 {'.', '.', '.', 'x', '.', 'x', '.', '.'},
                 {'.', 'x', '.', '.', '.', '.', '.', '.'},
         }, finalField1);
+    }
+
+    @Test
+    void testWriteField() throws IOException {
+        char[][] field = {
+                {'.', '.', '.', '.', '.', '.', '.', '.'},
+                {'.', '.', '.', 'x', '.', 'x', '.', '.'},
+                {'x', '.', 'x', '.', '.', '.', 'x', '.'},
+                {'.', '.', '.', 'x', '.', 'x', '.', '.'},
+                {'.', 'x', '.', '.', '.', '.', '.', '.'},
+        };
+        try (PrintWriter pw = new PrintWriter(new FileWriter(OUTPUT_FILE))) {
+            GameOfLife.writeField(pw, field);
+        }
+
+        String output = new String(Files.readAllBytes(Paths.get(OUTPUT_FILE))).replace("\r\n", "\n");
+
+        assertEquals("........\n...x.x..\nx.x...x.\n...x.x..\n.x......\n", output);
+
+        Files.deleteIfExists(Paths.get(OUTPUT_FILE));
     }
 }

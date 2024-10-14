@@ -72,13 +72,14 @@ class GameOfLife {
         for (int i = 0; i < generations; i++) {
             field = nextGeneration(field);
         }
-        System.out.println(Arrays.deepToString(field));
         return field;
     }
 
     // Метод для запису поля у файл
-    public static void writeField() {
-        //TODO
+    public static void writeField(PrintWriter pw, char[][] field) {
+        for (char[] row : field) {
+            pw.println(new String(row));
+        }
     }
 
     public static void main(String[] args) throws IOException {
