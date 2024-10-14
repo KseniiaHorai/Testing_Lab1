@@ -59,11 +59,29 @@ class GameOfLifeTest {
                 {'x', '.', '.', '.', '.', 'x', '.', 'x'},
         };
         assertEquals(5, GameOfLife.countNeighbors(field, 0, 0));
-        assertEquals(3, GameOfLife.countNeighbors(field, 2, 0));
         assertEquals(1, GameOfLife.countNeighbors(field, 0, 2));
+        assertEquals(3, GameOfLife.countNeighbors(field, 2, 0));
         assertEquals(2, GameOfLife.countNeighbors(field, 4, 4));
         assertEquals(4, GameOfLife.countNeighbors(field, 3, 7));
         assertEquals(4, GameOfLife.countNeighbors(field, 4, 7));
     }
 
+    @Test
+    void testGetNextCellState() {
+        char[][] field = {
+                {'x', '.', '.', '.', '.', 'x', '.', 'x'},
+                {'x', '.', 'x', '.', '.', '.', '.', 'x'},
+                {'x', '.', 'x', '.', 'x', '.', 'x', '.'},
+                {'.', '.', 'x', '.', '.', '.', '.', 'x'},
+                {'x', '.', '.', '.', '.', 'x', '.', 'x'},
+        };
+        assertEquals('.', GameOfLife.getNextCellState(field, 0, 0)); // Dead cell 5 > 3 neighbours
+        assertEquals('.', GameOfLife.getNextCellState(field, 0, 2)); // Dead cell 1 < 2 neighbours
+        assertEquals('x', GameOfLife.getNextCellState(field, 2, 0)); // Alive cell - 3
+        assertEquals('.', GameOfLife.getNextCellState(field, 0, 1)); // Dead cell with 4 alive neighbors
+        assertEquals('x', GameOfLife.getNextCellState(field, 3, 3)); // New Life
+        assertEquals('.', GameOfLife.getNextCellState(field, 4, 4)); // Dead cell with 2 alive neighbors
+        assertEquals('.', GameOfLife.getNextCellState(field, 3, 7)); // Dead cell 4 > 3 neighbours
+        assertEquals('.', GameOfLife.getNextCellState(field, 4, 7)); // Dead cell 4 > 3 neighbours
+    }
 }

@@ -35,8 +35,21 @@ class GameOfLife {
     }
 
     // Метод для отримання стану клітини у наступному поколінні
-    public static void getNextCellState() {
-        //TODO
+    public static char getNextCellState(char[][] field, int x, int y) {
+        int liveNeighbors = countNeighbors(field, x, y);
+        if (field[x][y] == 'x') {
+            if (liveNeighbors == 2 || liveNeighbors == 3) {
+                return 'x'; // Клітина залишається живою
+            } else {
+                return '.'; // Клітина помирає
+            }
+        } else {
+            if (liveNeighbors == 3) {
+                return 'x'; // Народження нової клітини
+            } else {
+                return '.'; // Клітина залишається мертвою
+            }
+        }
     }
 
     // Метод для обчислення наступного покоління
