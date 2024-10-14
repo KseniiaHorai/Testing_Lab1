@@ -84,4 +84,37 @@ class GameOfLifeTest {
         assertEquals('.', GameOfLife.getNextCellState(field, 3, 7)); // Dead cell 4 > 3 neighbours
         assertEquals('.', GameOfLife.getNextCellState(field, 4, 7)); // Dead cell 4 > 3 neighbours
     }
+
+    @Test
+    void testNextGeneration() {
+        char[][] field = {
+                {'.', '.', '.', '.', '.'},
+                {'.', '.', 'x', '.', '.'},
+                {'.', 'x', 'x', 'x', '.'},
+                {'.', '.', '.', '.', '.'}
+        };
+        char[][] nextGen1 = GameOfLife.nextGeneration(field);
+        assertArrayEquals(new char[][] {
+                {'.', '.', '.', '.', '.'},
+                {'.', 'x', 'x', 'x', '.'},
+                {'.', 'x', 'x', 'x', '.'},
+                {'.', '.', 'x', '.', '.'}
+        }, nextGen1);
+
+        char[][] nextGen2 = GameOfLife.nextGeneration(nextGen1);
+        assertArrayEquals(new char[][] {
+                {'.', 'x', '.', 'x', '.'},
+                {'.', 'x', '.', 'x', '.'},
+                {'.', '.', '.', '.', '.'},
+                {'.', 'x', 'x', 'x', '.'}
+        }, nextGen2);
+
+        char[][] nextGen3 = GameOfLife.nextGeneration(nextGen2);
+        assertArrayEquals(new char[][] {
+                {'x', 'x', '.', 'x', 'x'},
+                {'.', '.', '.', '.', '.'},
+                {'.', 'x', '.', 'x', '.'},
+                {'.', 'x', '.', 'x', '.'}
+        }, nextGen3);
+    }
 }

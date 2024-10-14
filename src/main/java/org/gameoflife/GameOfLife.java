@@ -53,8 +53,18 @@ class GameOfLife {
     }
 
     // Метод для обчислення наступного покоління
-    public static void nextGeneration() {
-        //TODO
+    public static char[][] nextGeneration(char[][] field) {
+        int rows = field.length;
+        int cols = field[0].length;
+        char[][] newField = new char[rows][cols];
+
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                newField[i][j] = getNextCellState(field, i, j);
+            }
+        }
+
+        return newField;
     }
 
     // Основний метод гри
